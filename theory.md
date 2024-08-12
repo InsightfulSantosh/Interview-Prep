@@ -38,67 +38,9 @@
 * [Recommender systems](#recommender-systems)
 * [Time series](#time-series)
 
-Let's break down each concept in simple terms:
 
-### **Supervised Machine Learning** 👶
-Supervised machine learning is a type of machine learning where we train a model on a labeled dataset. The model learns from the input-output pairs, allowing it to predict the output for new, unseen data. For example, if we have a dataset of house prices (inputs) with their corresponding prices (outputs), we can train a model to predict the price of a house given its features.
 
-### **Linear Regression** 👶
-#### **What is Regression?**
-Regression is a type of problem in machine learning where the goal is to predict a continuous value. For example, predicting the temperature for the next day, the price of a house, or the salary of an employee based on their experience.
 
-#### **Models for Solving Regression Problems**
-Some common models for regression include:
-- **Linear Regression**: Models the relationship between the input features and the target as a straight line.
-- **Decision Trees**: Can model non-linear relationships by splitting the data into segments.
-- **Random Forest**: An ensemble of decision trees to improve accuracy.
-- **Support Vector Regression (SVR)**: Uses support vectors to model the data in a way that can capture more complex relationships.
-- **Neural Networks**: Can model very complex relationships, often used for high-dimensional data.
-
-#### **What is Linear Regression? When Do We Use It?**
-Linear regression is a simple method to model the relationship between one or more input features and a continuous output variable by fitting a straight line (in case of one feature) or a plane (for more features) through the data points. We use linear regression when we believe the relationship between the inputs and the output is approximately linear.
-
-### **Normal Distribution** 👶
-#### **What is the Normal Distribution? Why Do We Care About It?**
-The normal distribution, also known as the bell curve or Gaussian distribution, is a probability distribution that is symmetric about the mean. It shows that data near the mean are more frequent in occurrence than data far from the mean. It’s important because many statistical methods assume that the data follows a normal distribution. Additionally, it often naturally occurs in real-world scenarios, making it a fundamental concept in statistics and machine learning.
-
-#### **How Do We Check If a Variable Follows the Normal Distribution?** ‍⭐️
-We can check if a variable follows a normal distribution using:
-- **Visual methods**: Plotting a histogram or a Q-Q plot (quantile-quantile plot).
-- **Statistical tests**: Shapiro-Wilk test, Kolmogorov-Smirnov test, or Anderson-Darling test.
-
-### **Predicting Prices** ‍⭐️
-#### **Are Prices Distributed Normally?**
-Prices often do not follow a normal distribution. They might be skewed, with more frequent smaller values and a few larger values (right-skewed).
-
-#### **Do We Need to Do Any Pre-processing for Prices?**
-Yes, we might need to preprocess prices by applying transformations (like logarithmic transformation) to make the distribution more normal if the model we're using assumes normality. However, some models can handle skewed data well without transformation.
-
-### **Methods for Solving Linear Regression** ‍⭐️
-Some methods include:
-- **Ordinary Least Squares (OLS)**: Finds the line (or hyperplane) that minimizes the sum of squared differences between the actual and predicted values.
-- **Gradient Descent**: An iterative method to minimize the cost function (explained below).
-- **Normal Equation**: A formula that gives the best fit directly, without iteration, but can be computationally expensive for large datasets.
-
-### **Gradient Descent** ‍⭐️
-Gradient descent is an optimization algorithm used to minimize a function by iteratively moving towards the minimum of the function. It works by calculating the gradient (slope) of the function and updating the parameters (weights) in the direction opposite to the gradient.
-
-### **Normal Equation** ‍⭐️
-The normal equation is a way to solve linear regression analytically. It directly computes the weights that minimize the cost function without needing iteration like in gradient descent. It’s efficient for smaller datasets but becomes computationally expensive for very large datasets.
-
-### **Stochastic Gradient Descent (SGD)** ‍⭐️
-SGD is a variant of gradient descent where the gradient is estimated using only a small subset (a single example or mini-batch) of the data at each step, rather than the whole dataset. This makes it faster and more scalable, especially for large datasets, but it introduces some noise in the optimization process.
-
-### **Metrics for Evaluating Regression Models** 👶
-Some common metrics include:
-- **Mean Squared Error (MSE)**: The average of the squared differences between the actual and predicted values. It penalizes large errors more than smaller ones.
-- **Root Mean Squared Error (RMSE)**: The square root of MSE. It’s in the same units as the target variable, making it more interpretable.
-
-#### **What are MSE and RMSE?**
-- **MSE**: \(\text{MSE} = \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2\), where \(y_i\) is the actual value, and \(\hat{y}_i\) is the predicted value.
-- **RMSE**: \(\text{RMSE} = \sqrt{\text{MSE}}\).
-
-They measure the accuracy of a regression model, with lower values indicating better performance.
 
 <br/>
 
