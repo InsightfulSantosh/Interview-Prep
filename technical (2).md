@@ -30,7 +30,7 @@ Suppose we have the following schema with two tables: Ads and Events
 * Events(event_id, ad_id, source, event_type, date, hour)
 * event_type could be impression, click, conversion
 
-<img src="img/schema.png" />
+<img src="sql_10_example.png" />
 
 
 Write SQL queries to extract the following information:
