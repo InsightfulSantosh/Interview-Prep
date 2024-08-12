@@ -11,12 +11,6 @@ Data science interview questions - with answers
 * Technical questions: [technical.md](technical.md) (SQL, Python, coding)
 * More to come
 
-## Contributed questions
-
-The `contrib` folder contains contributed interview questions:
-
-* Probability: [contrib/probability.md](contrib/probability.md)
-* Add your questions here!
 
 ## Other useful things
 
