@@ -96,29 +96,60 @@ y = B0 + B1*x1 + ... + Bn * xN
 
 **What are the main assumptions of linear regression? ⭐**
 
-There are several assumptions of linear regression. If any of them is violated, model predictions and interpretation may be worthless or misleading.
+The main assumptions of linear regression are crucial for the model to produce reliable and valid results. Here are the key assumptions:
 
-1. **Linear relationship** between features and target variable.
-2. **Additivity** means that the effect of changes in one of the features on the target variable does not depend on values of other features. For example, a model for predicting revenue of a company have of two features - the number of items _a_ sold and the number of items _b_ sold. When company sells more items _a_ the revenue increases and this is independent of the number of items _b_ sold. But, if customers who buy _a_ stop buying _b_, the additivity assumption is violated.
-3. Features are not correlated (no **collinearity**) since it can be difficult to separate out the individual effects of collinear features on the target variable.
-4. Errors are independently and identically normally distributed (y<sub>i</sub> = B0 + B1*x1<sub>i</sub> + ... + error<sub>i</sub>):
-   1. No correlation between errors (consecutive errors in the case of time series data).
-   2. Constant variance of errors - **homoscedasticity**. For example, in case of time series, seasonal patterns can increase errors in seasons with higher activity.
-   3. Errors are normaly distributed, otherwise some features will have more influence on the target variable than to others. If the error distribution is significantly non-normal, confidence intervals may be too wide or too narrow.
+1. **Linearity**  
+   - The relationship between the independent variables and the dependent variable should be linear. This means that the change in the dependent variable is proportional to the change in the independent variables.
+
+2. **Independence**  
+   - The observations (data points) should be independent of each other. This means that the value of the dependent variable for one observation is not influenced by the value for another observation.
+
+3. **Homoscedasticity**  
+   - The variance of the errors (residuals) should be constant across all levels of the independent variables. In other words, the spread of the residuals should be the same for all predicted values.
+
+4. **Normality of Residuals**  
+   - The residuals (the differences between the observed and predicted values) should be normally distributed. This assumption is especially important for hypothesis testing and constructing confidence intervals.
+
+5. **No Multicollinearity**  
+   - The independent variables should not be highly correlated with each other. High multicollinearity can make it difficult to determine the individual effect of each independent variable on the dependent variable.
+
+6. **No Autocorrelation**  
+   - In time series data, the residuals should not be correlated with each other. Autocorrelation can lead to underestimated standard errors and inflated t-scores, making the model results misleading.
+
 
 <br/>
 
 **What’s the normal distribution? Why do we care about it? 👶**
 
-The normal distribution is a continuous probability distribution whose probability density function takes the following formula:
 
-![formula](https://mathworld.wolfram.com/images/equations/NormalDistribution/NumberedEquation1.gif)
+The normal distribution, also known as the Gaussian distribution or bell curve, is a continuous probability distribution that is symmetrical around its mean. In a normal distribution:
+- **Mean (μ)**: The central peak represents the average value of the data.
+- **Standard Deviation (σ)**: Controls the spread or width of the distribution. About 68% of the data falls within one standard deviation from the mean, 95% within two standard deviations, and 99.7% within three standard deviations.
 
-where μ is the mean and σ is the standard deviation of the distribution.
+Mathematically, the probability density function (PDF) of a normal distribution is given by:
 
-The normal distribution derives its importance from the **Central Limit Theorem**, which states that if we draw a large enough number of samples, their mean will follow a normal distribution regardless of the initial distribution of the sample, i.e **the distribution of the mean of the samples is normal**. It is important that each sample is independent from the other.
+$$
+f(x) = \frac{1}{\sigma \sqrt{2\pi}} e^{-\frac{1}{2} \left(\frac{x-\mu}{\sigma}\right)^2}
+$$
 
-This is powerful because it helps us study processes whose population distribution is unknown to us.
+**Why Do We Care About the Normal Distribution?**
+
+The normal distribution is fundamental in statistics for several reasons:
+
+1. **Central Limit Theorem (CLT)**:
+   - The CLT states that the sum or average of a large number of independent and identically distributed random variables tends to follow a normal distribution, regardless of the original distribution. This makes the normal distribution a cornerstone for many statistical methods.
+
+2. **Hypothesis Testing**:
+   - Many statistical tests, like t-tests and z-tests, assume that the data follows a normal distribution. This assumption allows for the derivation of critical values and p-values, which are used to make inferences about populations.
+
+3. **Confidence Intervals**:
+   - When data is normally distributed, confidence intervals for the mean can be easily constructed, providing a range within which the true population mean is likely to fall.
+
+4. **Real-World Phenomena**:
+   - Many natural phenomena, like heights, weights, and test scores, tend to follow a normal distribution, making it a useful model for real-world data.
+
+5. **Simplicity and Symmetry**:
+   - The symmetry and simplicity of the normal distribution make it mathematically tractable and a useful model for various statistical analyses, even when data only approximates normality.
 
 
 <br/>
@@ -142,13 +173,41 @@ Yes, you may need to do pre-processing. Most probably, you will need to remove t
 
 **What methods for solving linear regression do you know? ‍⭐️**
 
-To solve linear regression, you need to find the coefficients <img src="https://render.githubusercontent.com/render/math?math=\beta"> which minimize the sum of squared errors.
+To solve linear regression, you need to find the coefficients , which minimize the sum of squared errors.
 
-Matrix Algebra method: Let's say you have `X`, a matrix of features, and `y`, a vector with the values you want to predict. After going through the matrix algebra and minimization problem, you get this solution: <img src="https://render.githubusercontent.com/render/math?math=\beta = (X^{T}X)^{-1}X^{T}y">. 
 
-But solving this requires you to find an inverse, which can be time-consuming, if not impossible. Luckily, there are methods like Singular Value Decomposition (SVD) or QR Decomposition that can reliably calculate this part <img src="https://render.githubusercontent.com/render/math?math=(X^{T}X)^{-1}X^{T}"> (called the pseudo-inverse) without actually needing to find an inverse. The popular python ML library `sklearn` uses SVD to solve least squares.
+"There are several methods to solve linear regression, each with its own applications and considerations:
 
-Alternative method: Gradient Descent. See explanation below.
+1. **Ordinary Least Squares (OLS)**
+   - **Description**: OLS is the most common method for solving linear regression. It minimizes the sum of the squared differences between the observed and predicted values.
+   - **Use Case**: OLS is suitable when the assumptions of linear regression are met, particularly when the data is well-behaved, and there is no multicollinearity.
+
+2. **Gradient Descent**
+   - **Description**: Gradient Descent is an iterative optimization algorithm used to minimize the cost function. It is particularly useful when dealing with large datasets or when the number of features is very high.
+   - **Use Case**: It's often used when OLS is computationally expensive or infeasible, such as in high-dimensional spaces or with large datasets.
+
+ 3. **Singular Value Decomposition (SVD)**
+   - **Description**: SVD is a factorization method that decomposes the design matrix into singular vectors and singular values. It’s useful for solving linear regression in cases where the matrix is not full-rank or when multicollinearity is present.
+   - **Use Case**: SVD is employed in situations where the design matrix is ill-conditioned or when dimensionality reduction is needed.
+
+4. **Ridge Regression**
+   - **Description**: Ridge regression is a regularized version of OLS that adds a penalty term proportional to the square of the coefficients. This helps prevent overfitting, especially in the presence of multicollinearity.
+   - **Use Case**: Used when multicollinearity exists among the independent variables, as it can help stabilize the solution.
+
+5. **Lasso Regression**
+   - **Description**: Lasso regression adds an L1 regularization term to the cost function, which can shrink some coefficients to zero, effectively performing feature selection.
+   - **Use Case**: Ideal for situations where feature selection is important, or when you suspect that only a subset of the predictors are significant.
+
+6. **Normal Equation**
+   - **Description**: The normal equation provides a closed-form solution for linear regression by directly solving the matrix equation derived from the OLS method.
+   - **Use Case**: It’s effective for small to medium-sized datasets where matrix inversion is computationally feasible.
+
+7. **Least Absolute Deviations (LAD)**
+   - **Description**: LAD minimizes the sum of the absolute deviations between the observed and predicted values. It is robust to outliers compared to OLS.
+   - **Use Case**: Used in cases where the data contains significant outliers that could affect the OLS solution.
+
+In practice, the choice of method depends on the dataset’s characteristics, including its size, the presence of multicollinearity, and whether feature selection is needed."
+
 
 <br/>
 
@@ -160,7 +219,41 @@ Gradient descent is an algorithm that uses calculus concept of gradient to try a
 
 **What is the normal equation? ‍⭐️**
 
-Normal equations are equations obtained by setting equal to zero the partial derivatives of the sum of squared errors (least squares); normal equations allow one to estimate the parameters of a multiple linear regression.
+
+The normal equation provides a closed-form solution to the linear regression problem. It directly computes the coefficients that minimize the cost function (the sum of squared residuals) without requiring iterative optimization techniques like gradient descent.
+
+The Normal Equation Formula
+
+For a linear regression model $\hat{y} = X\beta$, where:
+- $X$ is the matrix of input features (including a column of ones for the intercept),
+- $\beta$ is the vector of coefficients we want to estimate,
+- $\hat{y}$ is the vector of predicted values.
+
+The normal equation is given by:
+
+$$
+\beta = (X^T X)^{-1} X^T y
+$$
+
+Explanation
+
+- $X^T$ is the transpose of the feature matrix $X$,
+- $(X^T X)^{-1}$ is the inverse of the matrix $X^T X$,
+- $y$ is the vector of observed values.
+
+How It Works
+
+- The normal equation minimizes the sum of squared differences between the observed values and the values predicted by the model.
+- By multiplying the transpose of $X$ by $X$, we obtain a square matrix that can be inverted (assuming it's not singular). This inverse, when multiplied by $X^T y$, gives us the coefficient vector $\beta$.
+
+Use Case
+
+- The normal equation is particularly useful for small to medium-sized datasets where the matrix inversion is computationally feasible. However, it can become inefficient or impractical for very large datasets or when the matrix $X^T X$ is singular or nearly singular, leading to numerical instability.
+
+Summary
+
+The normal equation provides an efficient way to directly compute the optimal coefficients for linear regression, making it an important tool in situations where an exact, non-iterative solution is desired.
+
 
 <br/>
 
